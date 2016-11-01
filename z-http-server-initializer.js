@@ -7,15 +7,15 @@ module.exports = {
         /**
          * Create HTTP server.
          */
-        var server = http.createServer(app.express);
+        app.httpServer = http.createServer(app.express);
 
         /**
          * Listen on provided port, on all network interfaces.
          */
-        server.listen(app.config.zApp.port);
+        app.httpServer.listen(app.config.zApp.port);
 
-        server.on('error', onError);
-        server.on('listening', onListening);
+        app.httpServer.on('error', onError);
+        app.httpServer.on('listening', onListening);
 
         /**
          * Event listener for HTTP server "error" event.
@@ -48,7 +48,7 @@ module.exports = {
          * Event listener for HTTP server "listening" event.
          */
         function onListening() {
-            var addr = server.address();
+            var addr = app.httpServer.address();
             var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
             app.logger.info('server started listening on', bind);
         }
