@@ -12,7 +12,7 @@ module.exports = {
         /**
          * Listen on provided port, on all network interfaces.
          */
-        app.httpServer.listen(app.config.zApp.port);
+        app.httpServer.listen(app.config.zApp.port || process.env.PORT || 5000);
 
         app.httpServer.on('error', onError);
         app.httpServer.on('listening', onListening);
